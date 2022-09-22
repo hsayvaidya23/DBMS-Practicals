@@ -102,3 +102,51 @@ mysql>
 
 
 
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+mysql> delimiter $
+mysql> create procedure pl41(In rno1 int(3), name1 varchar(30))
+    -> begin declare i_date date;
+    -> declare diff int;
+    -> declare amount int;
+    -> select Date_of_issue into i_date from Borrower where Roll_no = rno1 and Name = name1;
+    -> if(diff >= 15 and diff <= 30) then set amount = diff * 5;
+    -> insert into Fine values(rno1, CURDATE(), amount);
+    ->  else if(diff>30) then set amount = diff * 50;
+    ->  insert into Fine values(rno1, CURDATE(), amount);
+    -> end if;
+    -> update Borrower set Status='R' where Roll_no = rno1 and Name = name1;
+    -> end;
+    ->  $ delimiter;
+ERROR 1064 (42000): You have an error in your SQL syntax; check the manual that corresponds to your MySQL server version for the right syntax to use near '' at line 12
+    -> 
+
+
+
